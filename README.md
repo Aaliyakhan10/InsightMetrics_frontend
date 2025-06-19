@@ -20,7 +20,7 @@ This is my submission for the **Frontend Battle Round 1**. It is a fully respons
  - DeepSeek AI
  - ChatGPT (by OpenAI) 
 ## 🌐 Live Preview
-🔗 [Visit the website on Netlify]((https://insightmetrics.netlify.app/))
+🔗 [Visit the website on Netlify](https://insightmetrics.netlify.app/)
 
 ## 💻 GitHub Repository
-🔗 [View the code on GitHub]((https://github.com/Aaliyakhan10/InsightMetrics_frontend))
+🔗 [View the code on GitHub](https://github.com/Aaliyakhan10/InsightMetrics_frontend)
