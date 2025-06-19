@@ -413,7 +413,7 @@ header {
    
     color: white;
     border: none;
-    padding: 0.8rem 1.8rem;
+    padding: 0.8rem 3rem;
     border-radius: 30px;
     font-weight: 600;
     cursor: pointer;
@@ -459,13 +459,14 @@ header {
 
 /* Hero Section */
 .hero {
-    padding: 8rem 5% 6rem;
+    padding: 5rem 5% 3rem; /* reduced top and bottom padding */
+    min-height: 85vh;      /* reduced from 100vh to 85vh */
     position: relative;
     overflow: hidden;
-    min-height: 100vh;
     display: flex;
     align-items: center;
 }
+
 
 .hero-content {
     max-width: 1200px;
