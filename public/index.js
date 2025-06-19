@@ -72,3 +72,49 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+
+   // Custom cursor
+   const cursor = document.querySelector('.cursor');
+   const cursorFollower = document.querySelector('.cursor-follower');
+   
+   document.addEventListener('mousemove', (e) => {
+       cursor.style.left = e.clientX + 'px';
+       cursor.style.top = e.clientY + 'px';
+       
+       setTimeout(() => {
+           cursorFollower.style.left = e.clientX + 'px';
+           cursorFollower.style.top = e.clientY + 'px';
+       }, 100);
+   });
+   
+   // Hover effects
+   document.querySelectorAll('a, button, .badge-item').forEach(el => {
+       el.addEventListener('mouseenter', () => {
+           cursor.classList.add('active');
+       });
+       
+       el.addEventListener('mouseleave', () => {
+           cursor.classList.remove('active');
+       });
+       
+       el.addEventListener('mousedown', () => {
+           cursor.classList.add('click');
+       });
+       
+       el.addEventListener('mouseup', () => {
+           cursor.classList.remove('click');
+       });
+   });
+   
+   // Badge animation
+   document.querySelectorAll('.badge-item').forEach((badge, index) => {
+       badge.style.opacity = '0';
+       badge.style.transform = 'translateY(20px)';
+       
+       setTimeout(() => {
+           badge.style.transition = 'all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+           badge.style.opacity = '1';
+           badge.style.transform = 'translateY(0)';
+       }, 800 + (index * 150));
+   });
