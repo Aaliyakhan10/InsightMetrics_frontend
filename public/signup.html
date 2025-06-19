@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Syft-Style Auth Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body class="dark-theme">
+    
+  <header>
+    <nav class="navbar">
+      <a href="#" class="logo">
+        <i class="fas fa-chart-line"></i> InsightMetrics
+      </a>
+
+      <button class="mobile-menu-btn" id="mobileMenuBtn">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="features.html">Features</a></li>
+        <li><a href="#solutions">Solutions</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#resources">Resources</a></li>
+        <li><a href="#blog">Blog</a></li>
+        <li><a href="signup.html" class="cta-button">Get Started</a></li>
+      </ul>
+
+      <div class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+      </div>
+    </nav>
+  </header>
+
+  <div class="background">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+  </div>
+
+  <div class="auth-container">
+    <div class="tabs">
+      <button id="showSignup" class="active">Sign Up</button>
+      <button id="showLogin">Login</button>
+    </div>
+
+    <form id="signupForm" class="form active">
+      <h2>Create Account</h2>
+      <input type="text" placeholder="Full Name" required />
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <form id="loginForm" class="form">
+      <h2>Login</h2>
+      <input type="email" placeholder="Email" required />
+      <input type="password" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+  </div>
+ 
+  <script src="script.js"></script>
+  <script src="index.js"></script>
+</body>
+</html>

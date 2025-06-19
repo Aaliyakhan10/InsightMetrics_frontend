@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Features - InsightMetrics Analytics</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4895ef;
+            --dark: #1d3557;
+            --light: #f8f9fa;
+            --text: #333333;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text-color: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            --header-bg: rgba(15, 23, 42, 0.8);
+        }
+
+        .light-mode {
+            --bg: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --text-secondary: #666666;
+            --border-color: #e0e0e0;
+            --glass-bg: rgba(255, 255, 255, 0.7);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --header-bg: rgba(255, 255, 255, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            background: radial-gradient(circle at top right, var(--bg), #1e293b, var(--bg));
+            color: var(--text-color);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* DNA Loader */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease;
+        }
+
+        .dna-helix {
+            position: relative;
+            width: 100px;
+            height: 200px;
+        }
+
+        .dna-strand {
+            position: absolute;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--accent);
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .dna-node {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: 0;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: dnaFloat 3s infinite ease-in-out;
+        }
+
+        .dna-node:nth-child(2) { animation-delay: 0.1s; top: 10%; }
+        .dna-node:nth-child(3) { animation-delay: 0.2s; top: 20%; }
+        .dna-node:nth-child(4) { animation-delay: 0.3s; top: 30%; }
+        .dna-node:nth-child(5) { animation-delay: 0.4s; top: 40%; }
+        .dna-node:nth-child(6) { animation-delay: 0.5s; top: 50%; }
+        .dna-node:nth-child(7) { animation-delay: 0.6s; top: 60%; }
+        .dna-node:nth-child(8) { animation-delay: 0.7s; top: 70%; }
+        .dna-node:nth-child(9) { animation-delay: 0.8s; top: 80%; }
+        .dna-node:nth-child(10) { animation-delay: 0.9s; top: 90%; }
+
+        @keyframes dnaFloat {
+            0%, 100% { transform: translate(-50%, -50%) translateX(0); }
+            50% { transform: translate(-50%, -50%) translateX(30px); }
+        }
+
+        .loader-text {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .loader-text::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+            animation: loadingBar 2s infinite;
+        }
+
+        @keyframes loadingBar {
+            0% { width: 0; left: 0; }
+            50% { width: 100%; left: 0; }
+            100% { width: 0; left: 100%; }
+        }
+
+        /* Glass Effect */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: 16px;
+        }
+
+        /* Header Styles */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 5%;
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0 15px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            padding: 8px 0;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--text-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 4px 20px rgba(67, 97, 238, 0.3);
+        }
+
+        .cta-button:hover {
+            background: var(--secondary);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 25px rgba(67, 97, 238, 0.5);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+            z-index: 101;
+        }
+
+        .theme-toggle {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-left: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg);
+        }
+
+        /* Features Hero Section */
+        .features-hero {
+            padding: 8rem 5% 4rem;
+            position: relative;
+            overflow: hidden;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+        }
+
+        .light-mode .features-hero {
+            background: linear-gradient(135deg, rgba(240, 242, 245, 0.8) 0%, rgba(230, 235, 240, 0.9) 100%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-text {
+            flex: 1;
+            padding-right: 50px;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            opacity: 0.9;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        .hero-image {
+            flex: 1;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .dashboard-preview {
+            width: 100%;
+            border-radius: 16px;
+            padding: 20px;
+            transform: rotateY(-5deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+        }
+
+        .dashboard-preview:hover {
+            transform: rotateY(0) rotateX(0);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            height: 300px;
+        }
+
+        .grid-item {
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .grid-item:hover {
+            transform: scale(1.03);
+        }
+
+        .grid-item:nth-child(1) {
+            grid-row: span 2;
+            background: linear-gradient(45deg, #4cc9f0, #4895ef);
+        }
+
+        .grid-item:nth-child(2) {
+            background: linear-gradient(45deg, #f72585, #b5179e);
+        }
+
+        .grid-item:nth-child(3) {
+            background: linear-gradient(45deg, #7209b7, #560bad);
+        }
+
+        /* Features Grid */
+        .features-section {
+            padding: 6rem 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            padding: 2.5rem 2rem;
+            transition: transform 0.3s ease;
+            text-align: center;
+            border-radius: 16px;
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--card-bg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeIn 0.8s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px) translateZ(20px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: rgba(72, 149, 239, 0.15);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: var(--accent);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Feature Detail Sections */
+        .feature-detail {
+            padding: 5rem 5%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .feature-content {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .feature-image {
+            flex: 1;
+            min-width: 300px;
+            perspective: 1000px;
+        }
+
+        .feature-image img {
+            width: 100%;
+            border-radius: 16px;
+            transform: rotateY(-5deg) rotateX(5deg);
+            transition: transform 0.5s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-image:hover img {
+            transform: rotateY(0) rotateX(0);
+        }
+
+        .feature-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            background: linear-gradient(to right, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .feature-content p {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .benefit-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+
+        .benefit-list li {
+            padding: 0.8rem 0;
+            padding-left: 30px;
+            position: relative;
+            color: var(--text-secondary);
+        }
+
+        .benefit-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            top: 0.8rem;
+            color: var(--accent);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+        }
+
+        .light-mode .stats-section {
+            background: linear-gradient(135deg, rgba(240, 242, 245, 0.8) 0%, rgba(230, 235, 240, 0.9) 100%);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            border-radius: 16px;
+            background-color: var(--card-bg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #4cc9f0, #4895ef);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        /* Footer */
+        footer {
+            padding: 5rem 5% 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            color: var(--text-color);
+        }
+
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(72, 149, 239, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            color: var(--accent);
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 3rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column;
+            }
+            
+            .hero-text {
+                padding-right: 0;
+                margin-bottom: 3rem;
+                text-align: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .hero p {
+                margin: 0 auto 2rem;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background: var(--card-bg);
+                backdrop-filter: blur(10px);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                transition: right 0.4s ease;
+                z-index: 100;
+                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+            }
+
+            .nav-links.active {
+                right: 0;
+            }
+
+            .nav-links li {
+                margin: 1.5rem 0;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .feature-detail {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .section-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .feature-card, .stat-card {
+                min-width: 100%;
+            }
+            
+            .theme-toggle {
+                width: 40px;
+                height: 40px;
+                margin-left: 10px;
+            }
+        }
+        
+        /* Animation delays for feature cards */
+        .feature-card:nth-child(1) { animation-delay: 0.1s; }
+        .feature-card:nth-child(2) { animation-delay: 0.2s; }
+        .feature-card:nth-child(3) { animation-delay: 0.3s; }
+        .feature-card:nth-child(4) { animation-delay: 0.4s; }
+        .feature-card:nth-child(5) { animation-delay: 0.5s; }
+        .feature-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        /* Floating animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- DNA Helix Loader -->
+    <div id="loader">
+        <div class="dna-helix">
+            <div class="dna-strand"></div>
+            <div class="dna-node"></div>
+            <div class="dna-node"></div>
+            <div class="dna-node"></div>
+            <div class="dna-node"></div>
+            <div class="dna-node"></div>
+            <div class="dna-node"></div>
+            <div class="dna-node"></div>
+            <div class="dna-node"></div>
+            <div class="dna-node"></div>
+        </div>
+        <div class="loader-text">Loading InsightMetrics</div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="index.html" class="logo">
+                <i class="fas fa-chart-network"></i>
+                InsightMetrics
+            </a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="features.html" class="active">Features</a></li>
+                <li><a href="solutions.html">Solutions</a></li>
+                <li><a href="pricing.html">Pricing</a></li>
+                <li><a href="resources.html">Resources</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="signup.html" class="cta-button">Get Started</a></li>
+            </ul>
+            
+            <div class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Features Hero Section -->
+    <section class="features-hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1>Advanced Analytics Features</h1>
+                <p>Discover the powerful tools that transform your data into actionable insights and drive business growth. Our comprehensive suite of features is designed to meet all your analytics needs.</p>
+                <a href="#features" class="cta-button">Explore Features</a>
+            </div>
+            <div class="hero-image floating">
+                <div class="dashboard-preview glass">
+                    <div class="dashboard-grid">
+                        <div class="grid-item glass">
+                            <i class="fas fa-chart-pie fa-3x"></i>
+                        </div>
+                        <div class="grid-item glass">
+                            <i class="fas fa-users fa-2x"></i>
+                        </div>
+                        <div class="grid-item glass">
+                            <i class="fas fa-trend-up fa-2x"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="features-section">
+        <div class="section-header">
+            <h2>Powerful Analytics Features</h2>
+            <p>Explore our comprehensive suite of tools designed to transform your data into actionable insights</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Real-Time Dashboards</h3>
+                <p>Monitor key metrics with customizable dashboards that update in real-time. Track performance and spot trends instantly.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <h3>AI-Powered Insights</h3>
+                <p>Our advanced algorithms detect patterns and provide actionable recommendations to optimize your business.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+                <h3>Automated Reporting</h3>
+                <p>Save time with scheduled reports delivered to your inbox. Customize templates and share insights effortlessly.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Data Security</h3>
+                <p>Enterprise-grade security with encryption, role-based access, and compliance with industry regulations.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-plug"></i>
+                </div>
+                <h3>Seamless Integrations</h3>
+                <p>Connect with your existing tools via our API or pre-built connectors for CRM, marketing, and sales platforms.</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <h3>Mobile Analytics</h3>
+                <p>Access your data anywhere with our native mobile apps for iOS and Android. Stay informed on the go.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Feature Detail Section 1 -->
+    <section class="feature-detail">
+        <div class="feature-content">
+            <h2>Real-Time Analytics Dashboards</h2>
+            <p>Gain immediate insights into your business with customizable dashboards that update in real-time. Monitor key performance indicators and make data-driven decisions faster than ever.</p>
+            
+            <ul class="benefit-list">
+                <li>Customizable widgets for personalized views</li>
+                <li>Drag-and-drop interface for easy configuration</li>
+                <li>Interactive visualizations for deeper analysis</li>
+                <li>Role-based access control for security</li>
+                <li>Cross-platform compatibility</li>
+            </ul>
+            
+            <a href="#" class="cta-button">See Dashboard Demo</a>
+        </div>
+        <div class="feature-image floating">
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Analytics Dashboard">
+        </div>
+    </section>
+
+    <!-- Feature Detail Section 2 -->
+    <section class="feature-detail">
+        <div class="feature-image floating">
+            <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="AI Analytics">
+        </div>
+        <div class="feature-content">
+            <h2>AI-Powered Predictive Analytics</h2>
+            <p>Leverage machine learning algorithms to uncover hidden patterns, predict future trends, and generate actionable recommendations for your business.</p>
+            
+            <ul class="benefit-list">
+                <li>Predict customer behavior and sales trends</li>
+                <li>Identify high-value customer segments</li>
+                <li>Detect anomalies and potential issues</li>
+                <li>Receive automated recommendations</li>
+                <li>Continuous learning from your data</li>
+            </ul>
+            
+            <a href="#" class="cta-button">Explore AI Capabilities</a>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="section-header">
+            <h2>Proven Results</h2>
+            <p>See how our features drive real business outcomes</p>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-value">89%</div>
+                <div class="stat-label">Faster Decision Making</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-value">42%</div>
+                <div class="stat-label">Increase in Operational Efficiency</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-value">3.5x</div>
+                <div class="stat-label">ROI for Our Customers</div>
+            </div>
+            
+            <div class="stat-card">
+                <div class="stat-value">97%</div>
+                <div class="stat-label">Customer Satisfaction Rate</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>InsightMetrics</h3>
+                <p>Powerful analytics tools to help you understand your data and make informed business decisions.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Product</h3>
+                <ul class="footer-links">
+                    <li><a href="features.html">Features</a></li>
+                    <li><a href="solutions.html">Solutions</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="#">Integrations</a></li>
+                    <li><a href="#">Updates</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">Guides</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="#">Webinars</a></li>
+                    <li><a href="#">Community</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Company</h3>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Partners</a></li>
+                    <li><a href="#">Legal</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 InsightMetrics. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Loader functionality
+        window.addEventListener('load', function() {
+            const loader = document.getElementById('loader');
+            setTimeout(function() {
+                loader.style.opacity = '0';
+                setTimeout(function() {
+                    loader.style.display = 'none';
+                }, 800);
+            }, 2500);
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            const icon = this.querySelector('i');
+            if (navLinks.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('light-mode');
+            
+            if (document.body.classList.contains('light-mode')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Check for saved theme preference
+        if (localStorage.getItem('theme') === 'light') {
+            document.body.classList.add('light-mode');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+
+        // Close mobile menu when clicking on links
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    const icon = mobileMenuBtn.querySelector('i');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            });
+        });
+
+        // Initialize animations
+        function initAnimations() {
+            // Add floating animation to elements
+            document.querySelectorAll('.feature-image, .dashboard-preview').forEach(element => {
+                element.classList.add('floating');
+            });
+        }
+
+        // Initialize when page loads
+        window.addEventListener('DOMContentLoaded', function() {
+            initAnimations();
+        });
+    </script>
+</body>
+</html>
